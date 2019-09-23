@@ -1,0 +1,19 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": true,
+  "deleteLocal": false,
+  "hostname": "10.0.0.82",
+  "port": "22",
+  "target": "/home/hairong/workspace/XLNet_learn2learn",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "hairong",
+  "password": "Goodluck2019",
+  "watch": [],
+  "transport": "scp"
+}

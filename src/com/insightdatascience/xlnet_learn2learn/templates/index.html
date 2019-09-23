@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename="css/index.css")}}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div>
+      <img class="logo" src="{{url_for('static', filename="img/logo.png")}}">
+    </div>
+
+    <form id="main-form" class="searchform" method="post" action="/query">
+      <div id="context-input" class="context-div">
+        <textarea id="context" class="context-area" name='contextBox' placeholder="please provide a context"></textarea>
+      </div>
+      <div id="query-input" class="query-div">
+        <textarea id="query" class="query-area" name='queryBox' placeholder="please ask a question"></textarea>
+        <div id="response-output" class="response-div">
+          <output id="answer" class="answer-output" name='answerBox'>
+        </div>
+      </div>
+      <div class="buttons">
+        <button type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal">
+    <!-- Place at bottom of page -->
+  </div>
+  <script>
+    $body = $("body");
+
+    $(document).on({
+      ajaxStart: function() {
+        $body.addClass("loading");
+      },
+      ajaxStop: function() {
+        $body.removeClass("loading");
+      }
+    });
+
+    // for submittion connection
+    $(document).ready(function() {
+      $('button[type="submit"]').click(function(e) {
+        // prevent default action and bubbling
+        e.preventDefault();
+        e.stopPropagation();
+        // variables for input field values
+        var context = $('textarea[name="contextBox"]').val();
+        var query = $('textarea[name="queryBox"]').val();
+        // * variable for file url
+        var formURL = $('form').attr('action');
+        $.post(
+          formURL, {
+            query_text: query,
+            context_text: context
+          },
+          function(response, status) {
+            var response = JSON.parse(response);
+            if (response.answer === "") {
+              response.answer = "Answer Not Found";
+              document.getElementById("answer").value = "Answer:  " + response.answer;
+            } else {
+              //document.getElementById("answer").value = "Answer: " + response.answer + "\n" + "Confidence: " + (response.probability * 100).toPrecision(4) + "%";
+              document.getElementById("answer").value = "Answer: " + response.answer + "\n";
+            }
+          }
+        )
+      })
+    })
+  </script>
+</body>
+
+</html>
