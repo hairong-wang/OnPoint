@@ -14,11 +14,10 @@ import json
 import time
 import datetime
 
-#debug_submodel = None
-
 app = Flask(__name__)
 
 def setup_app(app):
+  '''set up some global configuration before defining other functions in the app'''
   logging.basicConfig(filename='app.log',level=logging.INFO)
 
 setup_app(app)
