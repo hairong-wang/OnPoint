@@ -24,6 +24,7 @@ setup_app(app)
 
 @app.route("/")
 def html_display():
+  '''render html for root url'''
   return render_template("index.html")
 
 @app.route("/query", methods=['POST'])
