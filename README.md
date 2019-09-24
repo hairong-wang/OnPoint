@@ -1,13 +1,12 @@
-# Insight_Project_Framework
-Framework for machine learning projects at Insight Data Science.
+# User Review Question Answering System
+This repository explores the application of XL-Net on user review based question answering system. The base model and algorithm was inspired and based upon the [renatoviolin/xlnet link](https://github.com/renatoviolin/xlnet) repo.
 
-## Motivation for this project format:
-- **Insight_Project_Framework** : Put all source code for production within structured directory
-- **tests** : Put all source code for testing in an easy to find location
-- **configs** : Enable modification of all preset variables within single directory (consisting of one or many config files for separate tasks)
-- **data** : Include example a small amount of data in the Github repository so tests can be run to validate installation
-- **build** : Include scripts that automate building of a standalone environment
-- **static** : Any images or content to include in the README or web framework if part of the pipeline
+## This repo provides:
+- **src** : contains all the source code
+- **tst** : contains all the unit tests
+  - **data** : contains data for unit test
+- **configs** : contains config files for hyperparameters during finetuning and evaluation
+- **static** : contains image for the frontend
 
 ## Setup
 Clone repository and update python path
