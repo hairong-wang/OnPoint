@@ -57,7 +57,7 @@ def process_query(query_text: str, context_text: str):
         context_text (str) -- a paragraph from some article provided by user
 
     Returns:
-        answer (str) -- the anser for the question extracted from the context
+        answer (str) -- the answer for the question extracted from the context
     '''
   if query_text is None:
     return None
