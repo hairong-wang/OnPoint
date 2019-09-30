@@ -16,20 +16,16 @@ import datetime
 
 app = Flask(__name__)
 
-
 def setup_app(app):
   '''set up some global configuration before defining other functions in the app'''
   logging.basicConfig(filename='app.log', level=logging.INFO)
 
-
 setup_app(app)
-
 
 @app.route("/")
 def html_display():
   '''render html for root url'''
   return render_template("index.html")
-
 
 @app.route("/query", methods=['POST'])
 def get_result():
