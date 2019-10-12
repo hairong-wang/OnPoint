@@ -135,4 +135,3 @@ if __name__ == '__main__':
   print_('ORIGINAL', sp.EncodeAsPieces('I was born in 92000, and this is falsé.'))
   print_('OURS', encode_pieces(sp, 'I was born in 92000, and this is falsé.'))
   print(encode_ids(sp, 'I was born in 92000, and this is falsé.'))
-

@@ -289,4 +289,3 @@ class XLNetModel(object):
       A tf initializer. Used to initialize variables in layers on top of XLNet.
     """
     return self.initializer
-

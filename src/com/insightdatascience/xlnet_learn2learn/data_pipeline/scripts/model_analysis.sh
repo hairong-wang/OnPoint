@@ -1,8 +1,8 @@
 #### local path
 SQUAD_DIR=/home/hairong/workspace/squad
-INIT_CKPT_DIR=/home/hairong/workspace/xlnet/model
-PROC_DATA_DIR=/home/hairong/workspace/xlnet/proc_data
-MODEL_DIR=/home/hairong/workspace/xlnet/model
+INIT_CKPT_DIR=/home/hairong/workspace/xlnet/model_tpu
+PROC_DATA_DIR=/home/hairong/workspace/xlnet/proc_data_tpu
+MODEL_DIR=/home/hairong/workspace/xlnet/model_tpu
 
 python3 run_squad_GPU.py \
   --use_tpu=False \
@@ -11,16 +11,16 @@ python3 run_squad_GPU.py \
   --model_config_path=${INIT_CKPT_DIR}/xlnet_config.json \
   --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
   --output_dir=${PROC_DATA_DIR} \
-  --init_checkpoint=${INIT_CKPT_DIR}/model.ckpt-40000 \
+  --init_checkpoint=${INIT_CKPT_DIR}/model.ckpt-8000 \
   --model_dir=${MODEL_DIR} \
   --train_file=${SQUAD_DIR}/train-v2.0.json \
   --predict_file=${SQUAD_DIR}/dev-v2.0.json \
   --uncased=False \
-  --max_seq_length=340 \
+  --max_seq_length=512 \
   --do_train=False \
-  --train_batch_size=2 \
+  --train_batch_size=1 \
   --do_predict=True \
-  --predict_batch_size=32 \
+  --predict_batch_size=16 \
   --learning_rate=1e-5 \
   --adam_epsilon=1e-6 \
   --iterations=1000 \
