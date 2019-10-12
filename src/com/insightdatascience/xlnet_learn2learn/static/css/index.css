@@ -1,3 +1,7 @@
+body {
+  background-color: #EA7C23;
+}
+
 .container {
   text-align: center;
   width: 100%;
@@ -41,7 +45,7 @@ p {
 
 .logo {
   width: 500px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .buttons {
@@ -91,7 +95,7 @@ button:hover {
 }
 
 .context-area {
-  height: 200px;
+  height: 300px;
   width: 500px;
   border-radius: 30px;
   border: 1px solid #d4d4d4;
@@ -100,7 +104,7 @@ button:hover {
 }
 
 .query-area {
-  height: 15px;
+  height: 30px;
   position: static;
   font-size: 15px;
   border-radius: 30px;
