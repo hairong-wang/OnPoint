@@ -1,5 +1,15 @@
-# User Review Question Answering System
-This repository explores the application of XL-Net on user review based question answering system. The base model and algorithm was inspired and based upon the [renatoviolin/xlnet link](https://github.com/renatoviolin/xlnet) repo.
+## [Project Demo Slides](https://docs.google.com/presentation/d/16pl_ZvUmtmWsFKmMWbTw3GtJ1R5X2A84t0INaWZ02Ek/edit#slide=id.g63c4d69c00_0_222)
+
+# OnPoint: A Question Answering Service leveraging user reviews
+![image of pipline](https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/pipeline.png)
+
+OnPoint is a question answering service which levearages product user reviews. OnPoint saves you lots of time when you try to look for a product detail by providing you a short answer in seconds. 
+
+<p align="center">
+<img src="https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/demo-gif.gif">
+</p>
+
+This repository explores the application of XL-Net on user review based question answering service. The base model and algorithm was inspired and based upon the [XLNet: Generalized Autoregressive Pretraining for Language Understanding link](https://github.com/zihangdai/xlnet) and [renatoviolin/xlnet link](https://github.com/renatoviolin/xlnet) repo.
 
 ## This repo provides:
 - **src** : contains all the source code
@@ -9,117 +19,62 @@ This repository explores the application of XL-Net on user review based question
 - **static** : contains image for the frontend
 
 ## Setup
-Clone repository and update python path
-```
-repo_name=Insight_Project_Framework # URL of your new repository
-username=mrubash1 # Username for your personal github account
-git clone https://github.com/$username/$repo_name
-cd $repo_name
-echo "export $repo_name=${PWD}" >> ~/.bash_profile
-echo "export PYTHONPATH=$repo_name/src:${PYTHONPATH}" >> ~/.bash_profile
-source ~/.bash_profile
-```
-Create new development branch and switch onto it
-```
-branch_name=dev-readme_requisites-20180905 # Name of development branch, of the form 'dev-feature_name-date_of_creation'}}
-git checkout -b $branch_name
-```
-
-## Initial Commit
-Lets start with a blank slate: remove `.git` and re initialize the repo
-```
-cd $repo_name
-rm -rf .git   
-git init   
-git status
-```  
-You'll see a list of file, these are files that git doesn't recognize. At this point, feel free to change the directory names to match your project. i.e. change the parent directory Insight_Project_Framework and the project directory Insight_Project_Framework:
-Now commit these:
-```
-git add .
-git commit -m "Initial commit"
-git push origin $branch_name
-```
-
-## Requisites
-
-- List all packages and software needed to build the environment
-- This could include cloud command line tools (i.e. gsutil), package managers (i.e. conda), etc.
-
-#### Dependencies
-
-- [Streamlit](streamlit.io)
 
 #### Installation
-To install the package above, pleae run:
-```shell
-pip install -r requiremnts
+```
+git clone https://github.com/hairong-wang/XLNet_learn2learn.git
+cd XLNet_learn2learn
+```
+#### Requisites
+tensorflow-gpu==1.15.0-rc1
+absl-py==0.8.0
+Flask==1.1.1
+pip
+
+#### Environment setup
+Everything needed fot the environment
+
+## Steps to run
+
+### Step1: Configuration 
+
+### Step2: Prepare and Preprocess
+#### - Download dataset
+Download the dataset you want to use for finetuning
+The datasets used in this project are:
+- **The [Squad dataset](https://rajpurkar.github.io/SQuAD-explorer/) is used in this proeject.**
+- **The manual sampled and labeled AmazonQA and preprocessed dataset is available [here]**
+
+#### - Download model checkpoints
+- The model checkpoints is available [here]()
+
+#### - Convert dataset to SQuAD format(Optional)
+If you want to try other dataset, it needs to be converted to SQuAD format first.
+```
+code for converting to squad
+```
+#### - Preprocess data
+```
+```
+### Step3: Train model
+```
+Bash scripts/tpu_run_squad.sh
 ```
 
-## Build Environment
-- Include instructions of how to launch scripts in the build subfolder
-- Build scripts can include shell scripts or python setup.py files
-- The purpose of these scripts is to build a standalone environment, for running the code in this repository
-- The environment can be for local use, or for use in a cloud environment
-- If using for a cloud environment, commands could include CLI tools from a cloud provider (i.e. gsutil from Google Cloud Platform)
-```
-# Example
+### Step4: Evaluate model
 
-# Step 1
-# Step 2
-```
+### Step5: Inference model
 
-## Configs
-- We recommond using either .yaml or .txt for your config files, not .json
-- **DO NOT STORE CREDENTIALS IN THE CONFIG DIRECTORY!!**
-- If credentials are needed, use environment variables or HashiCorp's [Vault](https://www.vaultproject.io/)
-
-
-## Test
-- Include instructions for how to run all tests after the software is installed
-```
-# Example
-
-# Step 1
-# Step 2
-```
-
-## Run Inference
-- Include instructions on how to run inference
-- i.e. image classification on a single image for a CNN deep learning project
-```
-# Example
-
-# Step 1
-# Step 2
-```
-
-## Build Model
-- Include instructions of how to build the model
-- This can be done either locally or on the cloud
-```
-# Example
-
-# Step 1
-# Step 2
-```
-
-## Serve Model
-- Include instructions of how to set up a REST or RPC endpoint
-- This is for running remote inference via a custom model
-```
-# Example
-
-# Step 1
-# Step 2
-```
+### Step6: run the flask app on your local machine
 
 ## Analysis
-- Include some form of EDA (exploratory data analysis)
-- And/or include benchmarking of the model and results
-```
-# Example
 
-# Step 1
-# Step 2
-```
+#### Final result:
+
+Model | Finetune Dataset | Validation Dataset | AmazonQA Sample Coverage | EM | F1
+------|------------------|--------------------|--------------------------|----|---
+BERT-Large | SQuAD 2.0 | Augmented AmazonQA | % | ? | ?
+XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | % | ? | ?
+XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | % | ? | ?
+XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | % | ? | ?
+

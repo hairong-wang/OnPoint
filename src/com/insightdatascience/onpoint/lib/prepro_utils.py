@@ -107,31 +107,3 @@ def encode_ids(sp_model, text, sample=False):
   pieces = encode_pieces(sp_model, text, return_unicode=False, sample=sample)
   ids = [sp_model.PieceToId(piece) for piece in pieces]
   return ids
-
-
-if __name__ == '__main__':
-  import sentencepiece as spm
-
-  sp = spm.SentencePieceProcessor()
-  sp.load('sp10m.uncased.v3.model')
-
-  print_(u'I was born in 2000, and this is falsé.')
-  print_(u'ORIGINAL', sp.EncodeAsPieces(u'I was born in 2000, and this is falsé.'))
-  print_(u'OURS', encode_pieces(sp, u'I was born in 2000, and this is falsé.'))
-  print(encode_ids(sp, u'I was born in 2000, and this is falsé.'))
-  print_('')
-  prepro_func = partial(preprocess_text, lower=True)
-  print_(prepro_func('I was born in 2000, and this is falsé.'))
-  print_('ORIGINAL', sp.EncodeAsPieces(prepro_func('I was born in 2000, and this is falsé.')))
-  print_('OURS', encode_pieces(sp, prepro_func('I was born in 2000, and this is falsé.')))
-  print(encode_ids(sp, prepro_func('I was born in 2000, and this is falsé.')))
-  print_('')
-  print_('I was born in 2000, and this is falsé.')
-  print_('ORIGINAL', sp.EncodeAsPieces('I was born in 2000, and this is falsé.'))
-  print_('OURS', encode_pieces(sp, 'I was born in 2000, and this is falsé.'))
-  print(encode_ids(sp, 'I was born in 2000, and this is falsé.'))
-  print_('')
-  print_('I was born in 92000, and this is falsé.')
-  print_('ORIGINAL', sp.EncodeAsPieces('I was born in 92000, and this is falsé.'))
-  print_('OURS', encode_pieces(sp, 'I was born in 92000, and this is falsé.'))
-  print(encode_ids(sp, 'I was born in 92000, and this is falsé.'))
