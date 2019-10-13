@@ -160,6 +160,7 @@ FLAGS = flags.FLAGS
 
 class SquadExample(object):
   """A single training/test example for simple sequence classification.
+
      For examples without an answer, the start and end position are -1.
   """
 
