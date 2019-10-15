@@ -25,8 +25,8 @@ else:
 import tensorflow as tf
 import sentencepiece as spm
 from prepro_utils import preprocess_text, encode_ids, encode_pieces, printable_text
-import function_builder_GPU as function_builder
-import model_utils_GPU as model_utils
+import function_builder
+import model_utils
 import squad_utils
 from data_utils import SEP_ID, CLS_ID, VOCAB_SIZE
 
@@ -40,7 +40,7 @@ SEG_ID_PAD = 3
 # Preprocessing
 flags.DEFINE_bool("do_prepro", default=False,
       help="Perform preprocessing only.")
-flags.DEFINE_integer("num_proc", default=16,
+flags.DEFINE_integer("num_proc", default=1,
       help="Number of preprocessing processes.")
 flags.DEFINE_integer("proc_id", default=0,
       help="Process id for preprocessing.")
@@ -125,7 +125,7 @@ flags.DEFINE_integer("warmup_steps", default=0, help="number of warmup steps")
 flags.DEFINE_integer("save_steps", default=None,
                      help="Save the model for every save_steps. "
                      "If None, not to save any model.")
-flags.DEFINE_integer("max_save", default=0,
+flags.DEFINE_integer("max_save", default=5,
                      help="Max number of checkpoints to save. "
                      "Use 0 to save all.")
 flags.DEFINE_integer("shuffle_buffer", default=2048,

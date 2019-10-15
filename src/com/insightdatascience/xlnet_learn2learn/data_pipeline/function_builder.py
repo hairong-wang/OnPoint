@@ -236,36 +236,12 @@ def get_qa_outputs(FLAGS, features, is_training):
   # invalid position mask such as query and special symbols (PAD, SEP, CLS)
   p_mask = features["p_mask"]
 
-  keep_prob = 1.0
-  if is_training:
-    keep_prob = 0.8
-  else:
-    keep_prob = 1.0
-
   # logit of the start position
   with tf.variable_scope("start_logits"):
     start_logits = tf.layers.dense(
         output,
-        512,
-        kernel_initializer=initializer,
-        name="start_dense_1")
-    start_logits = tf.nn.relu(start_logits)
-    start_logits = tf.nn.dropout(start_logits, keep_prob)
-    
-    start_logits = tf.layers.dense(
-        start_logits,
-        384,
-        kernel_initializer=initializer,
-        name="start_dense_2")
-    start_logits = tf.nn.relu(start_logits)
-    start_logits = tf.nn.dropout(start_logits, keep_prob)
-    
-    start_logits = tf.layers.dense(
-        start_logits,
         1,
-        kernel_initializer=initializer,
-        name="start_dense_3")
-    
+        kernel_initializer=initializer)
     start_logits = tf.transpose(tf.squeeze(start_logits, -1), [1, 0])
     start_logits_masked = start_logits * (1 - p_mask) - 1e30 * p_mask
     start_log_probs = tf.nn.log_softmax(start_logits_masked, -1)
@@ -281,32 +257,16 @@ def get_qa_outputs(FLAGS, features, is_training):
                                dtype=tf.float32)
       start_features = tf.einsum("lbh,bl->bh", output, start_index)
       start_features = tf.tile(start_features[None], [seq_len, 1, 1])
-      
       end_logits = tf.layers.dense(
           tf.concat([output, start_features], axis=-1), xlnet_config.d_model,
           kernel_initializer=initializer, activation=tf.tanh, name="dense_0")
-      end_logits = tf.contrib.layers.layer_norm(end_logits, begin_norm_axis=-1)
-
-      end_logits = tf.layers.dense(
-          end_logits, 512,
-          kernel_initializer=initializer,
-          name="end_dense_1")
-      end_logits = tf.nn.relu(end_logits)  
-      end_logits = tf.nn.dropout(end_logits, keep_prob)
-
-      end_logits = tf.layers.dense(
-          end_logits, 384,
-          kernel_initializer=initializer,
-          name="end_dense_2")
-      end_logits = tf.nn.relu(end_logits)  
-      end_logits = tf.nn.dropout(end_logits, keep_prob)
+      end_logits = tf.contrib.layers.layer_norm(
+          end_logits, begin_norm_axis=-1)
 
       end_logits = tf.layers.dense(
           end_logits, 1,
           kernel_initializer=initializer,
-          name="end_dense_3")
-
-
+          name="dense_1")
       end_logits = tf.transpose(tf.squeeze(end_logits, -1), [1, 0])
       end_logits_masked = end_logits * (1 - p_mask) - 1e30 * p_mask
       end_log_probs = tf.nn.log_softmax(end_logits_masked, -1)
@@ -322,8 +282,6 @@ def get_qa_outputs(FLAGS, features, is_training):
                           [1, 1, FLAGS.start_n_top, 1])
       start_features = tf.tile(start_features[None],
                                [seq_len, 1, 1, 1])
-     
-     
       end_input = tf.concat([end_input, start_features], axis=-1)
       end_logits = tf.layers.dense(
           end_input,
@@ -331,28 +289,13 @@ def get_qa_outputs(FLAGS, features, is_training):
           kernel_initializer=initializer,
           activation=tf.tanh,
           name="dense_0")
-      end_logits = tf.contrib.layers.layer_norm(end_logits, begin_norm_axis=-1)
-      
-      end_logits = tf.layers.dense(
-          end_logits, 512,
-          kernel_initializer=initializer,
-          name="end_dense_1")
-      end_logits = tf.nn.relu(end_logits)  
-      end_logits = tf.nn.dropout(end_logits, 1.0)
-
-      end_logits = tf.layers.dense(
-          end_logits, 384,
-          kernel_initializer=initializer,
-          name="end_dense_2")
-      end_logits = tf.nn.relu(end_logits)  
-      end_logits = tf.nn.dropout(end_logits, 1.0)
-
+      end_logits = tf.contrib.layers.layer_norm(end_logits,
+                                                begin_norm_axis=-1)
       end_logits = tf.layers.dense(
           end_logits,
           1,
           kernel_initializer=initializer,
-          name="end_dense_3")
-
+          name="dense_1")
       end_logits = tf.reshape(end_logits, [seq_len, -1, FLAGS.start_n_top])
       end_logits = tf.transpose(end_logits, [1, 2, 0])
       end_logits_masked = end_logits * (
@@ -397,16 +340,8 @@ def get_qa_outputs(FLAGS, features, is_training):
         kernel_initializer=initializer, name="dense_0")
     ans_feature = tf.layers.dropout(ans_feature, FLAGS.dropout,
                                     training=is_training)
-    
     cls_logits = tf.layers.dense(
-        ans_feature, 256,
-        kernel_initializer=initializer,
-        name="cls_dense_256")
-    cls_logits = tf.nn.relu(cls_logits)  
-    cls_logits = tf.nn.dropout(cls_logits, keep_prob)
-    
-    cls_logits = tf.layers.dense(
-        cls_logits,
+        ans_feature,
         1,
         kernel_initializer=initializer,
         name="dense_1",

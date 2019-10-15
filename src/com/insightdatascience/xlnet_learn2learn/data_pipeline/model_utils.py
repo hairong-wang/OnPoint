@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import collections
+import os
 import re
 import numpy as np
 import six
@@ -25,7 +26,7 @@ def configure_tpu(FLAGS):
 
   session_config = tf.ConfigProto(allow_soft_placement=True)
   # Uncomment the following line if you hope to monitor GPU RAM growth
-#   session_config.gpu_options.allow_growth = True
+  # session_config.gpu_options.allow_growth = True
 
   if FLAGS.use_tpu:
     strategy = None
@@ -121,58 +122,31 @@ def get_train_op(FLAGS, total_loss, grads_and_vars=None):
   learning_rate = tf.where(global_step < FLAGS.warmup_steps,
                            warmup_lr, decay_lr)
 
+  if (FLAGS.weight_decay > 0 and not FLAGS.use_tpu and
+      FLAGS.num_core_per_host > 1):
+    raise ValueError("Do not support `weight_decay > 0` with multi-gpu "
+                     "training so far.")
+
   if FLAGS.weight_decay == 0:
     optimizer = tf.train.AdamOptimizer(
         learning_rate=learning_rate,
         epsilon=FLAGS.adam_epsilon)
-  elif FLAGS.weight_decay > 0 and FLAGS.num_core_per_host == 1:
+  else:
     optimizer = AdamWeightDecayOptimizer(
         learning_rate=learning_rate,
         epsilon=FLAGS.adam_epsilon,
         exclude_from_weight_decay=["LayerNorm", "layer_norm", "bias"],
         weight_decay_rate=FLAGS.weight_decay)
-  else:
-    raise ValueError("Do not support `weight_decay > 0` with multi-gpu "
-                     "training so far.")
 
   if FLAGS.use_tpu:
     optimizer = tf.contrib.tpu.CrossShardOptimizer(optimizer)
 
-  variables = tf.trainable_variables()
-  variables = variables[-177:]
-#   print('===========tvars====================')
-#   print(t_vars)
-  for v in variables:
-      print('=======', v, '======')
-  use_fp16 = False
-  if use_fp16:
-      print('entrou no FP16')
-      loss_scale_manager = tf.contrib.mixed_precision.ExponentialUpdateLossScaleManager(init_loss_scale=2**32, incr_every_n_steps=1000, decr_every_n_nan_or_inf=2, decr_ratio=0.5)
-      optimizer = tf.contrib.mixed_precision.LossScaleOptimizer(optimizer, loss_scale_manager)
-    #   optimizer = tf.contrib.mixed_precision.LossScaleOptimizer(optimizer, tf.contrib.mixed_precision.ExponentialUpdateLossScaleManager(init_loss_scale=2**32, incr_every_n_steps=1000, decr_every_n_nan_or_inf=2, decr_ratio=0.5))
+  if grads_and_vars is None:
+    grads_and_vars = optimizer.compute_gradients(total_loss)
+  gradients, variables = zip(*grads_and_vars)
+  clipped, gnorm = tf.clip_by_global_norm(gradients, FLAGS.clip)
 
-
-#   variables = tf.trainable_variables()
-  grads_and_vars = optimizer.compute_gradients(total_loss, variables)
-  grads_and_vars = [(g,v) for g,v in grads_and_vars if g is not None]
-  grads, variables = list(zip(*grads_and_vars))
-  all_are_finite = tf.reduce_all([tf.reduce_all(tf.is_finite(g)) for g in grads]) if use_fp16 else tf.constant(True, dtype=tf.bool)
-
-
-#   if grads_and_vars is None:
-#     grads_and_vars = optimizer.compute_gradients(total_loss, variables)
-#   gradients, variables = list(zip(*grads_and_vars))
-  clipped, gnorm = tf.clip_by_global_norm(grads, FLAGS.clip)
-#   clipped, gnorm = tf.clip_by_global_norm(gradients, FLAGS.clip)
-
-  clipped, gnorm = tf.clip_by_global_norm(
-        grads, clip_norm=1.0,
-        use_norm=tf.cond(
-            all_are_finite,
-            lambda: tf.global_norm(grads),
-            lambda: tf.constant(1.0)))
-
-  if FLAGS.lr_layer_decay_rate != 1.0:
+  if getattr(FLAGS, "lr_layer_decay_rate", 1.0) != 1.0:
     n_layer = 0
     for i in range(len(clipped)):
       m = re.search(r"model/transformer/layer_(\d+?)/", variables[i].name)
@@ -188,55 +162,15 @@ def get_train_op(FLAGS, total_loss, grads_and_vars=None):
               abs_rate, l, variables[i].name))
           break
 
-
   train_op = optimizer.apply_gradients(
-      list(zip(clipped, variables)), global_step=global_step)
-
-#   train_op = optimizer.apply_gradients(
-#       list(zip(clipped, variables)), global_step=global_step)
+      zip(clipped, variables), global_step=global_step)
 
   # Manually increment `global_step` for AdamWeightDecayOptimizer
-  if isinstance(optimizer, AdamWeightDecayOptimizer):
-    # print('+++++++++++++ IS INSTANCE +++++++++++++++++++++++ ')
+  if FLAGS.weight_decay > 0:
     new_global_step = global_step + 1
     train_op = tf.group(train_op, [global_step.assign(new_global_step)])
 
   return train_op, learning_rate, gnorm
-
-
-
-
-
-#   if grads_and_vars is None:
-#     grads_and_vars = optimizer.compute_gradients(total_loss)
-#   gradients, variables = zip(*grads_and_vars)
-#   clipped, gnorm = tf.clip_by_global_norm(gradients, FLAGS.clip)
-
-#   if FLAGS.lr_layer_decay_rate != 1.0:
-#     n_layer = 0
-#     for i in range(len(clipped)):
-#       m = re.search(r"model/transformer/layer_(\d+?)/", variables[i].name)
-#       if not m: continue
-#       n_layer = max(n_layer, int(m.group(1)) + 1)
-
-#     for i in range(len(clipped)):
-#       for l in range(n_layer):
-#         if "model/transformer/layer_{}/".format(l) in variables[i].name:
-#           abs_rate = FLAGS.lr_layer_decay_rate ** (n_layer - 1 - l)
-#           clipped[i] *= abs_rate
-#           tf.logging.info("Apply mult {:.4f} to layer-{} grad of {}".format(
-#               abs_rate, l, variables[i].name))
-#           break
-
-#   train_op = optimizer.apply_gradients(
-#       zip(clipped, variables), global_step=global_step)
-
-#   # Manually increment `global_step` for AdamWeightDecayOptimizer
-#   if isinstance(optimizer, AdamWeightDecayOptimizer):
-#     new_global_step = global_step + 1
-#     train_op = tf.group(train_op, [global_step.assign(new_global_step)])
-
-#   return train_op, learning_rate, gnorm
 
 
 def clean_ckpt(_):

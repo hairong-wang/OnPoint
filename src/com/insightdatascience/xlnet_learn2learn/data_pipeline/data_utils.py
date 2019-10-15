@@ -737,7 +737,7 @@ def get_dataset(params, num_hosts, num_core_per_host, split, file_names,
     example["perm_mask"] = tf.reshape(perm_mask, [seq_len, seq_len])
     example["input_k"] = tf.reshape(input_k, [seq_len])
     example["input_q"] = tf.reshape(input_q, [seq_len])
-    use_bfloat16 = False
+
     _convert_example(example, use_bfloat16)
 
     for k, v in example.items():
