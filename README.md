@@ -1,6 +1,5 @@
 ## [Project Demo Slides](https://docs.google.com/presentation/d/16pl_ZvUmtmWsFKmMWbTw3GtJ1R5X2A84t0INaWZ02Ek/edit#slide=id.g63c4d69c00_0_222)
-## [Package]
-(https://pypi.org/project/onpoint/)
+## [Package](https://pypi.org/project/onpoint/)
 
 # OnPoint: A Question Answering Service leveraging user reviews
 ![image of pipline](https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/pipeline.png)
