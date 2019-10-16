@@ -15,7 +15,7 @@ setup(
           'pandas',
           'numpy',
           'tensorflow',
-          'absl'
+          'absl',
           'nltk.translate.bleu_score'
       ],
   classifiers=[
