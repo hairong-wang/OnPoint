@@ -9,7 +9,7 @@ setup(
   author = 'Hairong Wang',                   # Type in your name
   author_email = 'whairong2011@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/hairong-wang/OnPoint',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/hairong-wang/OnPoint/archive/v_01.tar.gz',    # I explain this later on
   keywords = ['NLP', 'question-answering_service', 'Flask-app'],   # Keywords that define your package best
   install_requires=[            # I get to this in a second
           'pandas',
