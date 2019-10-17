@@ -4,7 +4,7 @@
 # OnPoint: A Question Answering Service leveraging user reviews
 ![image of pipline](https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/pipeline.png)
 
-OnPoint is a question answering service which levearages product user reviews. OnPoint saves you lots of time when you try to look for a product detail by providing you a short answer in seconds. 
+OnPoint is a question answering service which levearages product user reviews. OnPoint saves you lots of time when you try to look for a product detail by providing you a short answer in seconds.
 
 <p align="center">
 <img src="https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/demo-gif.gif">
@@ -12,12 +12,11 @@ OnPoint is a question answering service which levearages product user reviews. O
 
 This repository explores the application of XL-Net on user review based question answering service. The base model and algorithm was inspired and based upon the [XLNet: Generalized Autoregressive Pretraining for Language Understanding link](https://github.com/zihangdai/xlnet) and [renatoviolin/xlnet link](https://github.com/renatoviolin/xlnet) repo.
 
-## This repo provides:
-- **src** : contains all the source code
+## The directory structure of this repo is the following:
+- **onpoint** : contains all the source code
 - **tst** : contains all the unit tests
   - **data** : contains data for unit test
 - **configs** : contains config files for hyperparameters during finetuning and evaluation
-- **static** : contains image for the frontend
 
 ## Setup
 
@@ -37,7 +36,7 @@ Everything needed fot the environment
 
 ## Steps to run
 
-### Step1: Configuration 
+### Step1: Configuration
 
 ### Step2: Prepare and Preprocess
 #### - Download dataset
@@ -73,9 +72,8 @@ Bash scripts/tpu_run_squad.sh
 #### Final result:
 
 Model | Finetune Dataset | Validation Dataset | AmazonQA Sample Coverage | F1
-------|------------------|--------------------|--------------------------|--- 
+------|------------------|--------------------|--------------------------|---
 BERT-Large | SQuAD 2.0 | Augmented AmazonQA | % | ?
-XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | % | ? 
-XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | % | ? 
-XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | % | ? 
-
+XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | % | ?
+XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | % | ?
+XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | % | ?
