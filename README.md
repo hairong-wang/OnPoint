@@ -73,6 +73,10 @@ bash scripts/tpu_run_squad.sh
 ## Analysis
 
 #### Final result:
+<head>
+  <link rel="stylesheet" type="text/css" href="{{url_for('onpoint', filename="static/css/index.css")}}">
+</head>
+
 <div class="foo">
 Model | Finetune Dataset | Validation Dataset | AmazonQA Sample Coverage | F1
 ------|------------------|--------------------|--------------------------|---
@@ -81,4 +85,5 @@ XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | 40% | 66.20
 XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | 0% | 66.67
 XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | 50% | 69.27
 </div>
+
 
