@@ -2,7 +2,7 @@
 ## [Package](https://pypi.org/project/onpoint/)
 
 # OnPoint: A Question Answering Service leveraging user reviews
-![image of pipline](https://github.com/hairong-wang/XLNet_learn2learn/blob/dev-tpu_version-20191012/src/com/insightdatascience/xlnet_learn2learn/static/img/pipeline.png)
+![image of pipline](https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/pipeline.png)
 
 OnPoint is a question answering service which levearages product user reviews. OnPoint saves you lots of time when you try to look for a product detail by providing you a short answer in seconds.
 
@@ -73,13 +73,12 @@ bash scripts/tpu_run_squad.sh
 ## Analysis
 
 #### Final result:
-
+<div class="foo">
 Model | Finetune Dataset | Validation Dataset | AmazonQA Sample Coverage | F1
 ------|------------------|--------------------|--------------------------|---
 BERT-Large | SQuAD 2.0 | Augmented AmazonQA | 30% | 67.34
 XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | 40% | 66.20
 XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | 0% | 66.67
 XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | 50% | 69.27
-
-
+</div>
 
