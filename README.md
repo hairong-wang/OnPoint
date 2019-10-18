@@ -1,5 +1,5 @@
 ## [Project Demo Slides](https://docs.google.com/presentation/d/16pl_ZvUmtmWsFKmMWbTw3GtJ1R5X2A84t0INaWZ02Ek/edit#slide=id.g63c4d69c00_0_222)
-## [Package](https://pypi.org/project/onpoint/)
+## [Package](https://pypi.org/project/onpoint/): new release coming soon.
 
 # OnPoint: A Question Answering Service leveraging user reviews
 ![image of pipline](https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/pipeline.png)
@@ -32,42 +32,61 @@ cd OnPoint
 4. pip
 
 #### Environment setup
-Everything needed fot the environment
+```
+export CUDA_VISIBLE_DEVICES=0
+```
 
 ## Steps to run
 
 ### Step1: Configuration
+All files in OnPoint/onpoint/bin need configuration.
+Here's one example to change path:
+```
+SQUAD_DATA_S3_BUCKET='squad-data'
+SQUAD_DATA_TRAIN_S3_KEY='squad2.0/train-v2.0.json'
+SQUAD_DATA_DEV_S3_KEY='squad 2.0/dev-v2.0.json'
+LOCAL_SQUAD_DATA_TRAIN_PATH=./squad2.0_train.json
+LOCAL_SQUAD_DATA_DEV_PATH=./squad2.0_dev.json
+```
 
 ### Step2: Prepare and Preprocess
 #### - Download dataset
 Download the dataset you want to use for finetuning.
 The datasets used in this project are:
 - **The [Squad dataset](https://rajpurkar.github.io/SQuAD-explorer/) is used in this proeject.**
-- **The manual sampled and labeled AmazonQA and preprocessed dataset is available [here]**
+- **The manual sampled and labeled AmazonQA and preprocessed dataset is available at Google Cloud Storage Buckets/xlnet_squad2/data/amazon, you can access the bucket from [here](https://console.cloud.google.com/storage/browser/xlnet_squad2).**
 
 #### - Download model checkpoints
-- The model checkpoints is available [here]()
+- The model checkpoints is available at Google Cloud Storage Buckets/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup, you can access the bucket from [here](https://console.cloud.google.com/storage/browser/xlnet_squad2).
+So far, the top performance model checkpoint is 'model.ckpt-4000'
 
 #### - Convert dataset to SQuAD format(Optional)
 If you want to try other dataset, it needs to be converted to SQuAD format first.
 ```
-code for converting to squad
+# Change the INFILE and OUTFILE path
+python3 squad_converter.py
 ```
 #### - Preprocess data
+multi-processing available, need to change 'NUM_PROC=' to the number of core you'll use.
 ```
+cd onpoint
+bash bin/data_processing
 ```
 ### Step3: Train model
 ```
-bash scripts/tpu_run_squad.sh
+bash bin/model_building
 ```
-
 ### Step4: Evaluate model
-
+```
+bash bin/model_analysis
+```
 ### Step5: Inference model
-
+```
+bash bin/model_inference
+```
 ### Step6: run the flask app on your local machine
 ```
-
+python3 app.py
 ```
 
 ## Analysis
