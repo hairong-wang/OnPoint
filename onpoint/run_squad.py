@@ -410,7 +410,7 @@ def convert_examples_to_features(examples, sp_model, max_seq_length,
         i = i - 1
 
     if all(v is None for v in orig_to_chartok_index) or f[N - 1, M - 1] < 0.8 * N:
-      print('MISMATCH DETECTED!')
+      tf.logging.info('MISMATCH DETECTED!')
       continue
 
     tok_start_to_orig_index = []

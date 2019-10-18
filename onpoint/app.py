@@ -45,7 +45,7 @@ def get_result():
     log_file = open('query_records.log','a')
     log_file.write("Start Time: " + str(datetime.datetime.now()) + "; Query: " + query_text + "; Answer: " + answer + "; Time Used: " + str(end_time - start_time) + '\n')
     log_file.close()
-    print('time used = ', end_time - start_time)
+    logging.info('time used = ', end_time - start_time)
     return result
 
 def process_query(query_text: str, context_text: str):

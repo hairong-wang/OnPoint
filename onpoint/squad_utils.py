@@ -13,6 +13,7 @@ import os
 import re
 import string
 import sys
+import logging
 
 OPTS = None
 
@@ -91,7 +92,7 @@ def get_raw_scores(dataset, preds):
           # For unanswerable questions, only correct answer is empty string
           gold_answers = ['']
         if qid not in preds:
-          print('Missing prediction for %s' % qid)
+          logging.warning('Missing prediction for %s' % qid)
           continue
         a_pred = preds[qid]
         # Take max over all gold answers
@@ -316,7 +317,7 @@ def main():
     with open(OPTS.out_file, 'w') as f:
       json.dump(out_eval, f)
   else:
-    print(json.dumps(out_eval, indent=2))
+    logging.info(json.dumps(out_eval, indent=2))
 
 if __name__ == '__main__':
   OPTS = parse_args()
