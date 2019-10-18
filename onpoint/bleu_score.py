@@ -12,7 +12,7 @@ class BleuScore:
     def __init__(self, infile):
         self._infile = infile
 
-    def getDF(self):
+    def get_df(self):
         i = 0
         df = {}
         with open(self._infile, 'r') as fp:
@@ -42,7 +42,7 @@ class BleuScore:
 
 def main():
     blue = BleuScore()
-    train_df = blue.getDF(train_infile)
+    train_df = blue.get_df(train_infile)
     train_df_small = train_df.head(100)
     train_df_new = blue.add_BLEU_score(train_df_small)
     train_df_new_sort = train_df_new.sort_values('BLEU_4gram_score',ascending=False)

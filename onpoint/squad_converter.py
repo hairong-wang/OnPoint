@@ -12,7 +12,7 @@ class SquadConverter:
     def __init__(self):
         self._template = SquadTemplate()
 
-    def getDF(self,
+    def get_df(self,
               infile):
         with open(infile) as f:
             data = json.load(f)
@@ -123,7 +123,7 @@ def main():
     '''example of converting amazonqa to squad format'''
     converter = SquadConverter()
     # read amazonqa dataset from json file into DataFrame
-    df = converter.getDF(INFILE)
+    df = converter.get_df(INFILE)
     # get context, question and id for the first record
     context, question, qid = converter.get_context_and_question_and_id(df,
                                                                        0)

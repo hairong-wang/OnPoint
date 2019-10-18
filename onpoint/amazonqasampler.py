@@ -13,7 +13,7 @@ class AmazonQASampler:
     def __init__(self, infile):
         self._infile = infile
 
-    def getDF(self):
+    def get_df(self):
         i = 0
         df = {}
         with open(self._infile, 'r') as fp:
@@ -23,7 +23,7 @@ class AmazonQASampler:
         return pd.DataFrame.from_dict(df, orient='index')
 
     def sample(self):
-        squad_train_df = self.getDF()
+        squad_train_df = self.get_df()
         amazonqa_sample = squad_train_df.sample(1000)
         return amazonQA_sample
 
