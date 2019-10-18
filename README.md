@@ -22,14 +22,14 @@ This repository explores the application of XL-Net on user review based question
 
 #### Installation
 ```
-git clone https://github.com/hairong-wang/XLNet_learn2learn.git
-cd XLNet_learn2learn
+git clone https://github.com/hairong-wang/OnPoint.git
+cd OnPoint
 ```
 #### Requisites
-tensorflow-gpu==1.15.0-rc1
-absl-py==0.8.0
-Flask==1.1.1
-pip
+1. tensorflow-gpu==1.15.0-rc1
+2. absl-py==0.8.0
+3. Flask==1.1.1
+4. pip
 
 #### Environment setup
 Everything needed fot the environment
@@ -40,7 +40,7 @@ Everything needed fot the environment
 
 ### Step2: Prepare and Preprocess
 #### - Download dataset
-Download the dataset you want to use for finetuning
+Download the dataset you want to use for finetuning.
 The datasets used in this project are:
 - **The [Squad dataset](https://rajpurkar.github.io/SQuAD-explorer/) is used in this proeject.**
 - **The manual sampled and labeled AmazonQA and preprocessed dataset is available [here]**
@@ -58,7 +58,7 @@ code for converting to squad
 ```
 ### Step3: Train model
 ```
-Bash scripts/tpu_run_squad.sh
+bash scripts/tpu_run_squad.sh
 ```
 
 ### Step4: Evaluate model
@@ -66,6 +66,9 @@ Bash scripts/tpu_run_squad.sh
 ### Step5: Inference model
 
 ### Step6: run the flask app on your local machine
+```
+
+```
 
 ## Analysis
 
@@ -73,7 +76,7 @@ Bash scripts/tpu_run_squad.sh
 
 Model | Finetune Dataset | Validation Dataset | AmazonQA Sample Coverage | F1
 ------|------------------|--------------------|--------------------------|---
-BERT-Large | SQuAD 2.0 | Augmented AmazonQA | % | ?
-XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | % | ?
-XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | % | ?
-XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | % | ?
+BERT-Large | SQuAD 2.0 | Augmented AmazonQA | 30% | 67.34
+XLNet-Large | SQuAD 2.0 | Augmented AmazonQA | 40% | 66.20
+XLNet-Large | Augmented AmazonQA | Augmented AmazonQA | 0% | 66.67
+XLNet-Large | SQuAD 2.0 + Augmented AmazonQA | Augmented AmazonQA | 50% | 69.27
