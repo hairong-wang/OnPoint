@@ -39,11 +39,17 @@ export CUDA_VISIBLE_DEVICES=0
 ## Steps to run
 
 ### Step1: Configuration
-All files in OnPoint/onpoint/bin need configuration.
-Here's one example to change path:
+All files in OnPoint/onpoint/bin need configuration, including: 
+1. data_ingestion
+2. data_processing
+3. model_analysis
+4. model_building
+5. model_inference
+
+Here's one example to change paths:
 ```
 SQUAD_DATA_S3_BUCKET='squad-data'
-SQUAD_DATA_TRAIN_S3_KEY='squad2.0/train-v2.0.json'
+SQUAD_DATA_TRAIN_S3_KEY='squad2.0/train-v2.0.json' # If AWS s3 is used
 SQUAD_DATA_DEV_S3_KEY='squad 2.0/dev-v2.0.json'
 LOCAL_SQUAD_DATA_TRAIN_PATH=./squad2.0_train.json
 LOCAL_SQUAD_DATA_DEV_PATH=./squad2.0_dev.json
@@ -73,6 +79,7 @@ cd onpoint
 bash bin/data_processing
 ```
 ### Step3: Train model
+Change the local path, google storage path and TPU_NAME
 ```
 bash bin/model_building
 ```
