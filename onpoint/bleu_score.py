@@ -47,5 +47,5 @@ def main():
     train_df_new = blue.add_BLEU_score(train_df_small)
     train_df_new_sort = train_df_new.sort_values('BLEU_4gram_score',ascending=False)
 
-if __name__==__main__:
+if __name__=='__main__':
     main()
