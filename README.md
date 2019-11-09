@@ -59,6 +59,10 @@ The datasets used in this project are:
 #### - Download model checkpoints
 - The model checkpoints is available at Google Cloud Storage Buckets/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup, you can access the bucket from [here](https://console.cloud.google.com/storage/browser/xlnet_squad2).
 So far, the top performance model checkpoint is 'model.ckpt-4000'
+The following files need to be downloaded and put in your path accordingly.
+<p align="center">
+<img src="https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/demo-gif.gif">
+</p>
 
 #### - Convert dataset to SQuAD format(Optional)
 If you want to try other dataset, it needs to be converted to SQuAD format first.
