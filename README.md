@@ -61,7 +61,7 @@ The datasets used in this project are:
 So far, the top performance model checkpoint is 'model.ckpt-4000'
 The following files need to be downloaded and put in your path accordingly.
 <p align="center">
-<img src="https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/demo-gif.gif">
+<img src="https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/download_files.png">
 </p>
 
 #### - Convert dataset to SQuAD format(Optional)
