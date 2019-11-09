@@ -47,6 +47,7 @@ SQUAD_DATA_TRAIN_S3_KEY='squad2.0/train-v2.0.json'
 SQUAD_DATA_DEV_S3_KEY='squad 2.0/dev-v2.0.json'
 LOCAL_SQUAD_DATA_TRAIN_PATH=./squad2.0_train.json
 LOCAL_SQUAD_DATA_DEV_PATH=./squad2.0_dev.json
+MODEL_DIR=YOUR PATH
 ```
 
 ### Step2: Prepare and Preprocess
