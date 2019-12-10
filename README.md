@@ -32,6 +32,7 @@ cd OnPoint
 4. pip
 
 #### Environment setup
+Optional, if you have multiple GPUs on your machine, then it's recommended that you use one GPU to run. Without this configuration, it might take unnecessary memory from addtional GPUs while this additional GPUs are not actually running. 
 ```
 export CUDA_VISIBLE_DEVICES=0
 ```
