@@ -26,10 +26,11 @@ git clone https://github.com/hairong-wang/OnPoint.git
 cd OnPoint
 ```
 #### Requisites
-1. tensorflow-gpu==1.15.0-rc1
+1. tensorflow==1.15
 2. absl-py==0.8.0
 3. Flask==1.1.1
 4. pip
+5. sentencepiece
 
 #### Operating system
 Linux
@@ -81,28 +82,43 @@ Now you can paste the context you want to use to the left text box, and type in 
 ## Steps to finetune the model
 ###Step1: Data processing
 #### - Convert dataset to SQuAD format(Optional)
-If you want to try other dataset, it needs to be converted to SQuAD format first.
+If you want to try other dataset, it needs to be converted to SQuAD format first using squad_converter.py
 ```
 # Change the INFILE and OUTFILE path
 python3 squad_converter.py
 ```
 #### - Preprocess data
-multi-processing available, need to change 'NUM_PROC=' to the number of core you'll use.
+multi-processing available in bin/data_processing, need to change 'NUM_PROC=' to the number of core you'll use.
+Replace with your own gcp storage bucket
 ```
 cd onpoint
+export STORAGE_BUCKET=${YOUR GCP STORAGE BUCKET}
 bin/data_processing
 ```
 ### Step2: Train model
+The model_building script contains two parts, the second part is for fintuning on Amazon, now it's commented.
+If you want to finetune on AmazonQA, please comment the first part, and uncomment the second part.
+please replace with your own tpu name
 ```
-bash bin/model_building
+export TPU_NAME=${YOUR TPU NAME}
+bin/model_building
 ```
 ### Step3: Evaluate model
+The model_analysis script is to evaluate the model fintuned on SQUAD. If you'd like to evaluate other checkpoints, please modify the variables
 ```
-bash bin/model_analysis
+export STORAGE_BUCKET=${YOUR GCP STORAGE BUCKET}
+export TPU_NAME=${YOUR TPU NAME}
+bin/model_analysis
 ```
 ### Step4: Inference model
+Model inference takes two arguments, the first is the path name of the test dataset in JSON format, the second is the folder name of output(prediction) directory
+You can find the following folders in the tmp folder:
+null_odds.json: no answer probability
+nbest_predictions.json
+predictions.json: prediction result
+
 ```
-bash bin/model_inference
+bin/model_inference ${TEST DATASET JSON PATH NAME} ${OUTPUT FOLDER NAME}
 ```
 
 ## Analysis

@@ -2,7 +2,7 @@
 
 #### local path
 SQUAD_DIR=data/squad
-INIT_CKPT_DIR=/home/whairong2011/xlnet_cased_L-24_H-1024_A-16
+INIT_CKPT_DIR=model/xlnet_cased_L-24_H-1024_A-16
 
 #### google storage path
 GS_ROOT=${STORAGE_BUCKET}
@@ -12,7 +12,7 @@ python3 run_squad.py \
  --use_tpu=False \
  --do_prepro=True \
  --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
- --train_file=${SQUAD_DIR}/amazonqa_squad_21_train.json \
+ --train_file=${SQUAD_DIR}/amazonqa_squad_100_train.json \
  --output_dir=${GS_PROC_DATA_DIR} \
  --uncased=False \
  --max_seq_length=512 \
@@ -25,7 +25,7 @@ python3 run_squad.py \
 #    --use_tpu=False \
 #    --do_prepro=True \
 #    --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
-#    --train_file=${SQUAD_DIR}/amazonqa_squad_21_train.json \
+#    --train_file=${SQUAD_DIR}/amazonqa_squad_100_train.json \
 #    --output_dir=${GS_PROC_DATA_DIR} \
 #    --uncased=False \
 #    --max_seq_length=512 \

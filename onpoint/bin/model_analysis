@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #### local path
-INIT_CKPT_DIR=/home/whairong2011/xlnet_cased_L-24_H-1024_A-16
+INIT_CKPT_DIR=model/xlnet_cased_L-24_H-1024_A-16
 
 #### google storage path
 GS_ROOT=${STORAGE_BUCKET}
@@ -9,9 +9,9 @@ GS_INIT_CKPT_DIR=${GS_ROOT}/experiment/squad
 GS_PROC_DATA_DIR=${GS_ROOT}/proc_data/amazon
 GS_MODEL_DIR=${GS_ROOT}/experiment/amazon_steps8000_warmup1000
 SQUAD_DIR=${GS_ROOT}/data/amazon
-# TPU name in google cloud
-TPU_NAME=whairong2011
 
+#### this is to evaluate the model fintuned on SQUAD
+#### if you'd like to evaluate other checkpoints, please modify the variables
 python3 run_squad.py \
   --use_tpu=True \
   --tpu=${TPU_NAME} \
@@ -22,8 +22,8 @@ python3 run_squad.py \
   --output_dir=${GS_PROC_DATA_DIR} \
   --init_checkpoint=${GS_INIT_CKPT_DIR}/model.ckpt-8000 \
   --model_dir=${GS_MODEL_DIR} \
-  --train_file=${SQUAD_DIR}/amazonqa_squad_21_train.json \
-  --predict_file=${SQUAD_DIR}/amazonqa_squad_6_valid.json \
+  --train_file=${SQUAD_DIR}/amazonqa_squad_100_train.json \
+  --predict_file=${SQUAD_DIR}/amazonqa_squad_100_valid.json \
   --uncased=False \
   --max_seq_length=512 \
   --do_train=False \
