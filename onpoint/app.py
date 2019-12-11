@@ -45,7 +45,8 @@ def get_result():
     log_file = open('query_records.log','a')
     log_file.write("Start Time: " + str(datetime.datetime.now()) + "; Query: " + query_text + "; Answer: " + answer + "; Time Used: " + str(end_time - start_time) + '\n')
     log_file.close()
-    logging.info('time used = ', end_time - start_time)
+    duration = str(end_time - start_time)
+    logging.info('time used = ', duration)
     return result
 
 def process_query(query_text: str, context_text: str):
@@ -75,7 +76,7 @@ def process_query(query_text: str, context_text: str):
         f.close()
       # execute the model evaluation bash script which read the json file
       # and write predictions json file\
-      os.system('bash data_pipeline/scripts/model_inference.sh tmp/data.json tmp')
+      os.system('bin/model_inference tmp/data.json tmp')
       # read predictions json file to get answer
       prediction = {}
       with open('tmp/predictions.json') as f:

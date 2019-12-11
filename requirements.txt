@@ -2,6 +2,7 @@
 # pip install -r requirements.txt
 
 #streamlit
-tensorflow-gpu==1.15.0-rc1
+tensorflow==1.15
 absl-py==0.8.0
 Flask==1.1.1
+sentencepiece

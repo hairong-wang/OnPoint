@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#### local path
+INIT_CKPT_DIR=model/xlnet_cased_L-24_H-1024_A-16 #the pretrained xl-net model
+MODEL_DIR=model/finetuned #the checkpoint i finetuned
+PROC_DATA_DIR=proc_data #direcoty for processed data
+
+#### create path
+mkdir -p ${INIT_CKPT_DIR}
+mkdir -p ${MODEL_DIR}
+mkdir -p ${PROC_DATA_DIR}
+
+#### export environment virable
+export INIT_CKPT_DIR
+export MODEL_DIR
+export PROC_DATA_DIR
+
+#### download model checkpoints
+#### run this script under OnPoint/onpoint/, with bash command:
+#### bin/model_download
+wget https://storage.googleapis.com/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup/model.ckpt-4000.data-00000-of-00001 -O ${MODEL_DIR}/model.ckpt-4000.data-00000-of-00001
+wget https://storage.googleapis.com/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup/model.ckpt-4000.index -O ${MODEL_DIR}/model.ckpt-4000.index
+wget https://storage.googleapis.com/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup/model.ckpt-4000.meta -O ${MODEL_DIR}/model.ckpt-4000.meta
+wget https://storage.googleapis.com/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup/checkpoint -O ${MODEL_DIR}/checkpoint
+wget https://storage.googleapis.com/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup/graph.pbtxt -O ${MODEL_DIR}/graph.pbtxt
+
+wget https://storage.googleapis.com/xlnet_squad2/xlnet_cased_L-24_H-1024_A-16/spiece.model -O ${INIT_CKPT_DIR}/spiece.model
+wget https://storage.googleapis.com/xlnet_squad2/xlnet_cased_L-24_H-1024_A-16/xlnet_config.json -O ${INIT_CKPT_DIR}/xlnet_config.json
+wget https://storage.googleapis.com/xlnet_squad2/xlnet_cased_L-24_H-1024_A-16/xlnet_model.ckpt.data-00000-of-00001 -O ${INIT_CKPT_DIR}/xlnet_model.ckpt.data-00000-of-00001
+wget https://storage.googleapis.com/xlnet_squad2/xlnet_cased_L-24_H-1024_A-16/xlnet_model.ckpt.index -O ${INIT_CKPT_DIR}/xlnet_model.ckpt.index
+wget https://storage.googleapis.com/xlnet_squad2/xlnet_cased_L-24_H-1024_A-16/xlnet_model.ckpt.meta -O ${INIT_CKPT_DIR}/xlnet_model.ckpt.meta

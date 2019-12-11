@@ -31,41 +31,55 @@ cd OnPoint
 3. Flask==1.1.1
 4. pip
 
+#### Operating system
+Linux
+
 #### Environment setup
 Optional, if you have multiple GPUs on your machine, then it's recommended that you use one GPU to run. Without this configuration, it might take unnecessary memory from addtional GPUs while this additional GPUs are not actually running. 
 ```
 export CUDA_VISIBLE_DEVICES=0
 ```
 
-## Steps to run
-
-### Step1: Configuration
-All files in OnPoint/onpoint/bin need configuration.
-Here's one example to change path:
+## Steps to run the Flask App
+### Step1: Install requirement
+run
 ```
-SQUAD_DATA_S3_BUCKET='squad-data'
-SQUAD_DATA_TRAIN_S3_KEY='squad2.0/train-v2.0.json'
-SQUAD_DATA_DEV_S3_KEY='squad 2.0/dev-v2.0.json'
-LOCAL_SQUAD_DATA_TRAIN_PATH=./squad2.0_train.json
-LOCAL_SQUAD_DATA_DEV_PATH=./squad2.0_dev.json
-MODEL_DIR=YOUR PATH
+pip install -r requirement.txt
 ```
 
-### Step2: Prepare and Preprocess
+### Step2: Download dataset and model checkpoints
+
 #### - Download dataset
-Download the dataset you want to use for finetuning.
 The datasets used in this project are:
 - **The [Squad dataset](https://rajpurkar.github.io/SQuAD-explorer/) is used in this proeject.**
 - **The manual sampled and labeled AmazonQA and preprocessed dataset is available at Google Cloud Storage Buckets/xlnet_squad2/data/amazon, you can access the bucket from [here](https://console.cloud.google.com/storage/browser/xlnet_squad2).**
+Download the datasets for finetuning by running the following:
+```
+cd onpoint
+bin/data_ingestion
+```
 
 #### - Download model checkpoints
 - The model checkpoints is available at Google Cloud Storage Buckets/xlnet_squad2/experiment/squad_and_amazon_8000steps_1000warmup, you can access the bucket from [here](https://console.cloud.google.com/storage/browser/xlnet_squad2).
 So far, the top performance model checkpoint is 'model.ckpt-4000'
-The following files need to be downloaded and put in your path accordingly.
-<p align="center">
-<img src="https://github.com/hairong-wang/OnPoint/blob/master/onpoint/static/img/download_files.png">
-</p>
+Download the model checkpoints by running:
+```
+bin/model_download
+```
 
+### Step3: Run the app
+```
+python3 app.py
+```
+Open your browser, and enter:
+```
+localhost:6001
+```
+Now you can paste the context you want to use to the left text box, and type in the question to the right text box.
+
+
+## Steps to finetune the model
+###Step1: Data processing
 #### - Convert dataset to SQuAD format(Optional)
 If you want to try other dataset, it needs to be converted to SQuAD format first.
 ```
@@ -76,23 +90,19 @@ python3 squad_converter.py
 multi-processing available, need to change 'NUM_PROC=' to the number of core you'll use.
 ```
 cd onpoint
-bash bin/data_processing
+bin/data_processing
 ```
-### Step3: Train model
+### Step2: Train model
 ```
 bash bin/model_building
 ```
-### Step4: Evaluate model
+### Step3: Evaluate model
 ```
 bash bin/model_analysis
 ```
-### Step5: Inference model
+### Step4: Inference model
 ```
 bash bin/model_inference
-```
-### Step6: run the flask app on your local machine
-```
-python3 app.py
 ```
 
 ## Analysis

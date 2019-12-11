@@ -1,8 +1,24 @@
 #!/bin/bash
 
 #### local path
-LOCAL_SQUAD_DATA_TRAIN_PATH=data/squad/squad2.0_train.json
-LOCAL_SQUAD_DATA_DEV_PATH=data/squad/squad2.0_dev.json
+SQUAD_DIR=data/squad
+LOCAL_SQUAD_DATA_TRAIN_PATH=${SQUAD_DIR}/squad2.0_train.json
+LOCAL_SQUAD_DATA_DEV_PATH=${SQUAD_DIR}/squad2.0_dev.json
+AMAZON_DIR=data/amazonqa
+LOCAL_AMAZON_DATA_TRAIN_PATH=${AMAZON_DIR}/amazonqa_squad_train_100.json
+LOCAL_AMAZON_DATA_DEV_PATH=${AMAZON_DIR}/amazonqa_squad_valid_100.json
+#### create path
+mkdir -p ${SQUAD_DIR}
+mkdir -p ${AMAZON_DIR}
+
+#### export environment virable
+export SQUAD_DIR
+export LOCAL_SQUAD_DATA_TRAIN_PATH
+export LOCAL_SQUAD_DATA_DEV_PATH
+export AMAZON_DIR
+export LOCAL_AMAZON_DATA_TRAIN_PATH
+export LOCAL_AMAZON_DATA_DEV_PATH
+
 
 #### download squad dataset
 #### run this script under OnPoint/onpoint/, with bash command:
@@ -10,3 +26,6 @@ LOCAL_SQUAD_DATA_DEV_PATH=data/squad/squad2.0_dev.json
 wget https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json -O ${LOCAL_SQUAD_DATA_TRAIN_PATH}
 wget https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json -O ${LOCAL_SQUAD_DATA_DEV_PATH}
 
+#### download manually labled amazonQA dataset
+wget https://storage.googleapis.com/xlnet_squad2/data/amazon/amazonqa_squad_train_100.json -O ${LOCAL_AMAZON_DATA_TRAIN_PATH}
+wget https://storage.googleapis.com/xlnet_squad2/data/amazon/amazonqa_squad_valid_100.json -O ${LOCAL_AMAZON_DATA_DEV_PATH}

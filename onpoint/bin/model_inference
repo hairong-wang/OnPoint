@@ -1,21 +1,21 @@
 #### local path
 #### Need to change the directory to your directory containing model
 #### checkpoint and processed data
-INIT_CKPT_DIR=/home/hairong/workspace/xlnet/model_tpu
-PROC_DATA_DIR=/home/hairong/workspace/xlnet/proc_data_tpu
-MODEL_DIR=/home/hairong/workspace/xlnet/model_tpu
+INIT_CKPT_DIR=model/xlnet_cased_L-24_H-1024_A-16 #the pretrained xl-net model
+MODEL_DIR=model/finetuned #the checkpoint i finetuned
+PROC_DATA_DIR=proc_data #direcoty for processed data
 
 CONTEXT=$1
 OUTPUT_PATH=$2
 
-python3 data_pipeline/run_squad.py \
+python3 run_squad.py \
   --use_tpu=False \
   --num_hosts=1 \
   --num_core_per_host=1 \
   --model_config_path=${INIT_CKPT_DIR}/xlnet_config.json \
   --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
   --output_dir=${PROC_DATA_DIR} \
-  --init_checkpoint=${INIT_CKPT_DIR}/model.ckpt-8000 \
+  --init_checkpoint=${MODEL_DIR}/model.ckpt-4000 \
   --model_dir=${MODEL_DIR} \
   --predict_file=${CONTEXT} \
   --predict_dir=${OUTPUT_PATH} \
