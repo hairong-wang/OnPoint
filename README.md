@@ -114,8 +114,12 @@ bin/model_analysis
 Model inference takes two arguments, the first is the path name of the test dataset in JSON format, the second is the folder name of output(prediction) directory
 You can find the following folders in the tmp folder:
 null_odds.json: no answer probability
-nbest_predictions.json
-predictions.json: prediction result
+nbest_predictions.json: the top n result, n can be set in run_squad.py
+```
+flags.DEFINE_integer("n_best_size", default=5,
+                     help="n best size for predictions")
+```
+predictions.json: top 1 prediction results
 
 ```
 bin/model_inference ${TEST DATASET JSON PATH NAME} ${OUTPUT FOLDER NAME}
