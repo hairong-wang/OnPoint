@@ -80,6 +80,11 @@ Now you can paste the context you want to use to the left text box, and type in 
 
 
 ## Steps to finetune the model
+Please log in to GCP compute engine instance for the following steps.
+For finetuning, you'll need a TPU instance and GCP storage bucket.
+
+### Step0: Download datasets and models(see above)
+
 ###Step1: Data processing
 #### - Convert dataset to SQuAD format(Optional)
 If you want to try other dataset, it needs to be converted to SQuAD format first using squad_converter.py

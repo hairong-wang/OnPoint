@@ -12,7 +12,7 @@ python3 run_squad.py \
  --use_tpu=False \
  --do_prepro=True \
  --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
- --train_file=${SQUAD_DIR}/amazonqa_squad_100_train.json \
+ --train_file=${SQUAD_DIR}/squad2.0_train.json \
  --output_dir=${GS_PROC_DATA_DIR} \
  --uncased=False \
  --max_seq_length=512 \
@@ -25,7 +25,7 @@ python3 run_squad.py \
 #    --use_tpu=False \
 #    --do_prepro=True \
 #    --spiece_model_file=${INIT_CKPT_DIR}/spiece.model \
-#    --train_file=${SQUAD_DIR}/amazonqa_squad_100_train.json \
+#    --train_file=${SQUAD_DIR}/squad2.0_train.json \
 #    --output_dir=${GS_PROC_DATA_DIR} \
 #    --uncased=False \
 #    --max_seq_length=512 \

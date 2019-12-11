@@ -1,8 +1,10 @@
 # To install these Python dependencies, please type:
 # pip install -r requirements.txt
 
-#streamlit
 tensorflow==1.15
 absl-py==0.8.0
 Flask==1.1.1
 sentencepiece
+pandas
+numpy
+nltk

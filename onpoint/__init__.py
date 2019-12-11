@@ -1,3 +1,3 @@
-from xlnet_learn2learn.amazonqasampler import AmazonQASampler
-from xlnet_learn2learn.squad_converter import SquadConverter,SquadTemplate
-from xlnet_learn2learn.blue_score import BleuScore
+from onpoint.amazonqasampler import AmazonQASampler
+from onpoint.squad_converter import SquadConverter,SquadTemplate
+from onpoint.bleu_score import BleuScore
