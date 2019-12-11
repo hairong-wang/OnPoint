@@ -103,9 +103,14 @@ bin/data_processing
 ### Step2: Train model
 The model_building script contains two parts, the second part is for fintuning on Amazon, now it's commented.
 If you want to finetune on AmazonQA, please comment the first part, and uncomment the second part.
+V3-8 TPU is recommended, run the following to start your TPU engine:
+```
+ctpu up --tpu-size=v3-8
+```
 please replace with your own tpu name
 ```
 export TPU_NAME=${YOUR TPU NAME}
+export STORAGE_BUCKET=${YOUR GCP STORAGE BUCKET}
 bin/model_building
 ```
 ### Step3: Evaluate model
