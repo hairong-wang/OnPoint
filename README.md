@@ -29,8 +29,10 @@ cd OnPoint
 1. tensorflow==1.15
 2. absl-py==0.8.0
 3. Flask==1.1.1
-4. pip
-5. sentencepiece
+4. sentencepiece
+5. pandas==0.25.1
+6. numpy==1.17.2
+7. nltk
 
 #### Operating system
 Linux

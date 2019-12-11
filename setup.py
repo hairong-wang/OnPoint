@@ -16,7 +16,7 @@ setup(
         'numpy',
         'tensorflow',
         'absl-py',
-        'nltk.translate.bleu_score',
+        'nltk',
         'Flask',
         'sentencepiece'
     ],
