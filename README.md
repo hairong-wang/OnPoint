@@ -137,15 +137,13 @@ predictions.json: top 1 prediction results
 bin/model_inference ${TEST DATASET JSON PATH NAME} ${OUTPUT FOLDER NAME}
 ```
 
-## Analysis
-
 ## Next steps:
-### Add preloading model
+### Add 'preloading model' feature
 The Pytorch BERT implementation with preloading takes 0.1 - 0.5 second to inference depending on the length of the context.
 The current tensorflow version doesn't support preloading directly, takes around 20 seconds.
-
 Tried to move the preloading part into global in app.py, didn't work, will try the [tensorflow serving](https://github.com/tensorflow/serving)
 for next steps.
+
 
 #### Final result:
 
