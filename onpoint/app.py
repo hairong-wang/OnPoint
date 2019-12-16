@@ -3,13 +3,8 @@
 
 from flask import Flask, request, render_template
 import logging
-from logging import Formatter, FileHandler
-import optparse
-import json
 import os
-import re
 import collections
-import copy
 import six
 import json
 import time
@@ -17,7 +12,6 @@ import datetime
 import tensorflow as tf
 import sentencepiece as spm
 from onpoint import model_utils
-
 from onpoint.run_squad import read_squad_examples, _get_spm_basename, FeatureWriter, convert_examples_to_features, \
     input_fn_builder, get_model_fn, FLAGS, write_predictions
 
@@ -264,4 +258,5 @@ def main(_):
 
 
 if __name__ == '__main__':
+    # parse FLAGS and run the main function
     tf.app.run()
