@@ -25,12 +25,13 @@ class AmazonQASampler:
     def sample(self):
         squad_train_df = self.get_df()
         amazonqa_sample = squad_train_df.sample(1000)
-        return amazonQA_sample
+        return amazonqa_sample
 
 def main():
     sampler = AmazonQASampler(INFILE)
     amazonqa_sample = sampler.sample()
     amazonqa_sample.to_json(OUTFILE)
+
 
 if __name__==__main__:
     main()

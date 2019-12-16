@@ -249,7 +249,7 @@ def find_best_thresh_v2(preds, scores, na_probs, qid_to_has_ans):
     if qid not in scores: continue
     has_ans_score += scores[qid]
 
-  return 100.0 * best_score / len(scores), best_thresh, 1.0 * has_ans_score / has_ans_cnt
+  return 100.0 * best_score / len(scores), best_thresh, 1.0 * has_ans_score / has_ans_cnt if has_ans_cnt != 0 else 0.
 
 def find_all_best_thresh(main_eval, preds, exact_raw, f1_raw, na_probs, qid_to_has_ans):
   best_exact, exact_thresh = find_best_thresh(preds, exact_raw, na_probs, qid_to_has_ans)
