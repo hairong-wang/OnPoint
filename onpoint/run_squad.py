@@ -4,11 +4,9 @@ from __future__ import division
 from __future__ import print_function
 
 from absl import flags
-import absl.logging as _logging  # pylint: disable=unused-import
 
 import collections
 import os
-import time
 import math
 import json
 import six

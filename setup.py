@@ -11,7 +11,7 @@ setup(
     url='https://github.com/hairong-wang/OnPoint',  # Provide either the link to your github or to your website
     download_url='https://github.com/hairong-wang/OnPoint/archive/v_02.tar.gz',  # I explain this later on
     keywords=['NLP', 'question-answering_service', 'Flask-app'],  # Keywords that define your package best
-    install_requires=[  # I get to this in a second
+    install_requires=[
         'pandas',
         'numpy',
         'tensorflow',
