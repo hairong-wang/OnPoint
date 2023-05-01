@@ -3,7 +3,7 @@
 
 tensorflow==1.15
 absl-py==0.8.0
-Flask==1.1.1
+Flask==2.3.2
 sentencepiece
 pandas
 numpy
